@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  auth-service-dev:
+    container_name: auth-service-develop
+    image: auth-service-dev:1.0.0
+    build: .
+    ports:
+      - 8000:8000
