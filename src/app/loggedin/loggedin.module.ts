@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
+import { LoggedinService } from ".";
 import { DATABASE_CONNECTION_NAME } from "@/constants";
 import { LOGGEDIN_MODEL, loggedinSchema } from "@/schemas";
-import { LoggedinService } from "@/loggedin/loggedin.service";
 
 @Module({
   imports: [

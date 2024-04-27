@@ -1,8 +1,9 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
+import { LoggedinService } from ".";
 import { CreateLoggedinDTO } from "@/dtos";
 import { loggedinDocument } from "@/schemas";
-import { LoggedinService } from "@/loggedin/loggedin.service";
+import { Created, IApiResponse, InternalServerError } from "@/utils";
 
 @Controller("loggedins")
 export class LoggedinController {
@@ -17,7 +18,7 @@ export class LoggedinController {
   @Post("create")
   async createLoggedin(
     @Body() loggedinDto: CreateLoggedinDTO
-  ): Promise<loggedinDocument> {
+  ): Promise<IApiResponse> {
     try {
       this.logger.debug({
         message: "Entering createLoggedin",
@@ -28,7 +29,12 @@ export class LoggedinController {
       const loggedin: loggedinDocument =
         await this.loggedinService.create(loggedinDto);
 
-      return loggedin;
+      const data = {
+        message: "Loggedin created",
+        loggedin: loggedin,
+      };
+
+      return Created(data);
     } catch (error: any) {
       this.logger.error({
         message: "Error creating loggedin",
@@ -36,7 +42,8 @@ export class LoggedinController {
         portal: loggedinDto.portal,
         error: error,
       });
-      return error;
+
+      return InternalServerError(error);
     }
   }
 }

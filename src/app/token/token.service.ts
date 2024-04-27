@@ -6,7 +6,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
 
-import { CipherService } from "@/cipher/cipher.service";
+import { CipherService } from "@/app/cipher/cipher.service";
 import { AccessTokenDTO, HashedTokenDTO, RefreshTokenDTO } from "@/dtos";
 
 @Injectable()

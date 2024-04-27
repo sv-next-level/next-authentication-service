@@ -1,7 +1,8 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
+import { TokenService } from ".";
 import { CreateTokenDTO } from "@/dtos";
-import { TokenService } from "@/token/token.service";
+import { Created, IApiResponse, InternalServerError } from "@/utils";
 
 @Controller("tokens")
 export class TokenController {
@@ -14,7 +15,7 @@ export class TokenController {
   }
 
   @Post("create")
-  async createToken(@Body() tokenDto: CreateTokenDTO): Promise<string> {
+  async createToken(@Body() tokenDto: CreateTokenDTO): Promise<IApiResponse> {
     try {
       this.logger.debug({
         message: "Entering createToken",
@@ -47,7 +48,12 @@ export class TokenController {
       const hashedToken: string =
         this.tokenService.createHashedToken(hashedTokenPayload);
 
-      return hashedToken;
+      const data = {
+        message: "Hashed token created",
+        token: hashedToken,
+      };
+
+      return Created(data);
     } catch (error: any) {
       this.logger.error({
         message: "Error creating token",
@@ -55,7 +61,8 @@ export class TokenController {
         portal: tokenDto.portal,
         error: error,
       });
-      return error;
+
+      return InternalServerError(error);
     }
   }
 }
