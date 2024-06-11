@@ -1,8 +1,8 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
 import { LoggedinService } from ".";
-import { CreateLoggedinDTO } from "@/dtos";
-import { loggedinDocument } from "@/schemas";
+import { CreateLoggedinDTO } from "@/dto";
+import { LoggedinDocument } from "@/db/mongo/model";
 import { Created, IApiResponse, InternalServerError } from "@/utils";
 
 @Controller("loggedins")
@@ -26,7 +26,7 @@ export class LoggedinController {
         portal: loggedinDto.portal,
       });
 
-      const loggedin: loggedinDocument =
+      const loggedin: LoggedinDocument =
         await this.loggedinService.create(loggedinDto);
 
       const data = {

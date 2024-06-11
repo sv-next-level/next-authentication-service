@@ -6,17 +6,17 @@ import {
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 
-import { CreateLoggedinDTO } from "@/dtos";
-import { DATABASE_CONNECTION_NAME } from "@/constants";
-import { LOGGEDIN_MODEL, loggedinDocument } from "@/schemas";
+import { CreateLoggedinDTO } from "@/dto";
+import { MONGOOSE_DB_CONNECTION } from "@/db/connection";
+import { LOGGEDIN_SCHEMA_NAME, LoggedinDocument } from "@/db/mongo/model";
 
 @Injectable()
 export class LoggedinService {
   private logger: Logger = new Logger("loggedin.service");
 
   constructor(
-    @InjectModel(LOGGEDIN_MODEL, DATABASE_CONNECTION_NAME.AUTH_SERVICE_DB)
-    private readonly loggedinModel: Model<loggedinDocument>
+    @InjectModel(LOGGEDIN_SCHEMA_NAME, MONGOOSE_DB_CONNECTION.MAIN)
+    private readonly loggedinModel: Model<LoggedinDocument>
   ) {
     this.logger.debug({
       message: "Entering constructor of loggedin service",
@@ -31,7 +31,7 @@ export class LoggedinService {
         portal: loggedinDto.portal,
       });
 
-      const newloggedin: loggedinDocument = await this.loggedinModel.create({
+      const newloggedin: LoggedinDocument = await this.loggedinModel.create({
         user_id: loggedinDto.userId,
         portal: loggedinDto.portal,
         device_info: loggedinDto.deviceInfo,

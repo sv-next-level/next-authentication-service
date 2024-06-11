@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { PORTAL, LOGGEDIN_STATUS } from "@/constants";
+import { LOGGEDIN_STATUS } from "@/constants";
+import { PORTAL } from "@/common/server/portal";
 
 @Schema({
   timestamps: true,
@@ -44,8 +45,8 @@ export class Loggedin {
   status: LOGGEDIN_STATUS;
 }
 
-export const loggedinSchema = SchemaFactory.createForClass(Loggedin);
+export const LOGGEDIN_SCHEMA_NAME = Loggedin.name;
 
-export type loggedinDocument = Loggedin & Document & { _id: string };
+export const LoggedinSchema = SchemaFactory.createForClass(Loggedin);
 
-export const LOGGEDIN_MODEL = Loggedin.name;
+export type LoggedinDocument = Loggedin & Document & { _id: string };

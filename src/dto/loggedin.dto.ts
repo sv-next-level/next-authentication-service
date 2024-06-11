@@ -1,4 +1,4 @@
-import { PORTAL } from "@/constants";
+import { PORTAL } from "@/common/server/portal";
 
 import {
   IsEnum,

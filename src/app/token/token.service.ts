@@ -7,7 +7,7 @@ import { ConfigService } from "@nestjs/config";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
 
 import { CipherService } from "@/app/cipher/cipher.service";
-import { AccessTokenDTO, HashedTokenDTO, RefreshTokenDTO } from "@/dtos";
+import { AccessTokenDTO, HashedTokenDTO, RefreshTokenDTO } from "@/dto";
 
 @Injectable()
 export class TokenService {
