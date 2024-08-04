@@ -1,12 +1,14 @@
+import { Model } from "mongoose";
+
 import {
   Injectable,
   InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
-import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateLoggedinDTO } from "@/dto";
+
 import { MONGOOSE_DB_CONNECTION } from "@/db/connection";
 import { LOGGEDIN_SCHEMA_NAME, LoggedinDocument } from "@/db/mongo/model";
 
@@ -16,7 +18,7 @@ export class LoggedinService {
 
   constructor(
     @InjectModel(LOGGEDIN_SCHEMA_NAME, MONGOOSE_DB_CONNECTION.MAIN)
-    private readonly loggedinModel: Model<LoggedinDocument>
+    private readonly loggedinModel: Model<LoggedinDocument>,
   ) {
     this.logger.debug({
       message: "Entering constructor of loggedin service",
@@ -45,7 +47,7 @@ export class LoggedinService {
           portal: loggedinDto.portal,
         });
         throw new InternalServerErrorException(
-          "Failed create new loggedin"
+          "Failed create new loggedin",
         ).getResponse();
       }
 

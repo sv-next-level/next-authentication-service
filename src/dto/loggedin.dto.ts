@@ -1,5 +1,3 @@
-import { PORTAL } from "@/common/server/portal";
-
 import {
   IsEnum,
   IsMongoId,
@@ -8,6 +6,8 @@ import {
   IsObject,
   IsString,
 } from "class-validator";
+
+import { PORTAL } from "@/common/server/portal";
 
 export class CreateLoggedinDTO {
   @IsMongoId()
@@ -22,7 +22,7 @@ export class CreateLoggedinDTO {
 
   @IsNotEmptyObject(
     { nullable: false },
-    { message: "deviceInfo can't be empty" }
+    { message: "deviceInfo can't be empty" },
   )
   @IsObject({ message: "deviceInfo should be object only" })
   readonly deviceInfo: object;

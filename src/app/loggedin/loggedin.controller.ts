@@ -1,9 +1,12 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
-import { LoggedinService } from ".";
 import { CreateLoggedinDTO } from "@/dto";
+
 import { LoggedinDocument } from "@/db/mongo/model";
+
 import { Created, IApiResponse, InternalServerError } from "@/utils";
+
+import { LoggedinService } from ".";
 
 @Controller("loggedins")
 export class LoggedinController {
@@ -17,7 +20,7 @@ export class LoggedinController {
 
   @Post("create")
   async createLoggedin(
-    @Body() loggedinDto: CreateLoggedinDTO
+    @Body() loggedinDto: CreateLoggedinDTO,
   ): Promise<IApiResponse> {
     try {
       this.logger.debug({

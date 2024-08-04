@@ -6,8 +6,9 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
 
-import { CipherService } from "@/app/cipher/cipher.service";
 import { AccessTokenDTO, HashedTokenDTO, RefreshTokenDTO } from "@/dto";
+
+import { CipherService } from "@/app/cipher/cipher.service";
 
 @Injectable()
 export class TokenService {
@@ -16,7 +17,7 @@ export class TokenService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly cipherService: CipherService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {
     this.logger.debug({
       message: "Entering constructor of token service",
@@ -32,10 +33,10 @@ export class TokenService {
       });
 
       const expiresInTime: string = this.configService.get<string>(
-        "JWT_ACCESS_EXPIRES_IN"
+        "JWT_ACCESS_EXPIRES_IN",
       );
       const secretKey: string = this.configService.get<string>(
-        "JWT_ACCESS_SECRET_KEY"
+        "JWT_ACCESS_SECRET_KEY",
       );
 
       const jwtOptions: JwtSignOptions = {
@@ -45,7 +46,7 @@ export class TokenService {
 
       const newAccessToken: string = await this.jwtService.signAsync(
         tokenPayload,
-        jwtOptions
+        jwtOptions,
       );
 
       if (!newAccessToken) {
@@ -55,7 +56,7 @@ export class TokenService {
           portal: tokenPayload.portal,
         });
         throw new InternalServerErrorException(
-          "Failed create new access token"
+          "Failed create new access token",
         ).getResponse();
       }
 
@@ -85,10 +86,10 @@ export class TokenService {
       });
 
       const expiresInTime: string = this.configService.get<string>(
-        "JWT_REFRESH_EXPIRES_IN"
+        "JWT_REFRESH_EXPIRES_IN",
       );
       const secretKey: string = this.configService.get<string>(
-        "JWT_REFRESH_SECRET_KEY"
+        "JWT_REFRESH_SECRET_KEY",
       );
 
       const jwtOptions: JwtSignOptions = {
@@ -98,7 +99,7 @@ export class TokenService {
 
       const newRefreshToken: string = await this.jwtService.signAsync(
         tokenPayload,
-        jwtOptions
+        jwtOptions,
       );
 
       if (!newRefreshToken) {
@@ -108,7 +109,7 @@ export class TokenService {
           portal: tokenPayload.portal,
         });
         throw new InternalServerErrorException(
-          "Failed create new refresh token"
+          "Failed create new refresh token",
         ).getResponse();
       }
 
@@ -147,7 +148,7 @@ export class TokenService {
           portal: tokenPayload.portal,
         });
         throw new InternalServerErrorException(
-          "Failed create new hashed token"
+          "Failed create new hashed token",
         ).getResponse();
       }
 

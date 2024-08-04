@@ -1,8 +1,10 @@
 import { Types } from "mongoose";
+
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { LOGGEDIN_STATUS } from "@/constants";
 import { PORTAL } from "@/common/server/portal";
+
+import { LOGGEDIN_STATUS } from "@/constants";
 
 @Schema({
   timestamps: true,

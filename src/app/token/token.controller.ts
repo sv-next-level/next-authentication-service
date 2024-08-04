@@ -1,8 +1,10 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
-import { TokenService } from ".";
 import { CreateTokenDTO } from "@/dto";
+
 import { Created, IApiResponse, InternalServerError } from "@/utils";
+
+import { TokenService } from ".";
 
 @Controller("tokens")
 export class TokenController {

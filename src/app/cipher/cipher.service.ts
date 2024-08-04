@@ -1,9 +1,10 @@
+import { AES, enc } from "crypto-js";
+
 import {
   Injectable,
   InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
-import { AES, enc } from "crypto-js";
 import { ConfigService } from "@nestjs/config";
 
 @Injectable()
@@ -29,7 +30,7 @@ export class CipherService {
           data_length: data.length,
         });
         throw new InternalServerErrorException(
-          "Failed to encrypt string"
+          "Failed to encrypt string",
         ).getResponse();
       }
 
@@ -54,7 +55,7 @@ export class CipherService {
           data_length: data.length,
         });
         throw new InternalServerErrorException(
-          "Failed to decrypt string"
+          "Failed to decrypt string",
         ).getResponse();
       }
 
@@ -73,7 +74,7 @@ export class CipherService {
     try {
       const cipherText: string = AES.encrypt(
         JSON.stringify(data),
-        this.secretKey
+        this.secretKey,
       ).toString();
 
       if (!cipherText) {
@@ -82,7 +83,7 @@ export class CipherService {
           data_length: JSON.stringify(data).length,
         });
         throw new InternalServerErrorException(
-          "Failed to encrypt object"
+          "Failed to encrypt object",
         ).getResponse();
       }
 
@@ -100,7 +101,7 @@ export class CipherService {
   decryptObject(data: string): any {
     try {
       const cipherObject: any = JSON.parse(
-        AES.decrypt(data, this.secretKey).toString(enc.Utf8)
+        AES.decrypt(data, this.secretKey).toString(enc.Utf8),
       );
 
       if (!cipherObject) {
@@ -109,7 +110,7 @@ export class CipherService {
           data_length: data.length,
         });
         throw new InternalServerErrorException(
-          "Failed to decrypt object"
+          "Failed to decrypt object",
         ).getResponse();
       }
 
