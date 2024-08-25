@@ -12,7 +12,7 @@ import { TokenModule } from "@/app/token/token.module";
 
 // import { RedisDatabaseModule } from "@/nestjs/db/redis/database.module";
 import { MongooseDatabaseModule } from "@/nestjs/db/mongo/database.module";
-import { MongooseModelsModule } from "@/nestjs/db/mongo/mongoose-models.module";
+import { MongooseModelsModule } from "@/nestjs/db/mongo/models.module";
 
 import { AppController } from "@/app.controller";
 import { AppService } from "@/app.service";
@@ -28,12 +28,12 @@ import { AppService } from "@/app.service";
     }),
     TokenModule,
     CipherModule,
-    LoggedinModule,
+    // LoggedinModule,
     // RedisDatabaseModule,
-    MongooseModelsModule,
-    MongooseDatabaseModule,
+    // MongooseModelsModule,
+    // MongooseDatabaseModule,
   ],
-  controllers: [AppController, TokenController, LoggedinController],
+  controllers: [AppController, TokenController],
   providers: [AppService],
 })
 export class AppModule {}

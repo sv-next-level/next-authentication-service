@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { MONGOOSE_DB_CONNECTION } from "@/db/connection";
+import { MONGO_DB_CONNECTION } from "@/db/connection";
 import { LOGGEDIN_SCHEMA_NAME, LoggedinSchema } from "@/db/mongo/model";
 
 import { LoggedinService } from ".";
@@ -10,7 +10,7 @@ import { LoggedinService } from ".";
   imports: [
     MongooseModule.forFeature(
       [{ name: LOGGEDIN_SCHEMA_NAME, schema: LoggedinSchema }],
-      MONGOOSE_DB_CONNECTION.MAIN,
+      MONGO_DB_CONNECTION.MAIN,
     ),
   ],
   providers: [LoggedinService],

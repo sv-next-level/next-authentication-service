@@ -9,7 +9,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateLoggedinDTO } from "@/dto";
 
-import { MONGOOSE_DB_CONNECTION } from "@/db/connection";
+import { MONGO_DB_CONNECTION } from "@/db/connection";
 import { LOGGEDIN_SCHEMA_NAME, LoggedinDocument } from "@/db/mongo/model";
 
 @Injectable()
@@ -17,7 +17,7 @@ export class LoggedinService {
   private logger: Logger = new Logger("loggedin.service");
 
   constructor(
-    @InjectModel(LOGGEDIN_SCHEMA_NAME, MONGOOSE_DB_CONNECTION.MAIN)
+    @InjectModel(LOGGEDIN_SCHEMA_NAME, MONGO_DB_CONNECTION.MAIN)
     private readonly loggedinModel: Model<LoggedinDocument>,
   ) {
     this.logger.debug({
