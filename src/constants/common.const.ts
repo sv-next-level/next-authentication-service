@@ -1,4 +1,0 @@
-export enum LOGGEDIN_STATUS {
-  ACTIVE = "ACTIVE",
-  DEACTIVE = "DEACTIVE",
-}

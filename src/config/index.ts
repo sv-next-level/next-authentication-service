@@ -1,4 +1,4 @@
-import { SECRET_CONFIG } from "@/config/secret.config";
-import { TIME_CONFIG } from "@/config/time.config";
+import { CIPHER_CONFIG } from "@/config/cipher.config";
+import { JWT_CONFIG } from "@/config/jwt.config";
 
-export default [TIME_CONFIG, SECRET_CONFIG];
+export default [JWT_CONFIG, CIPHER_CONFIG];

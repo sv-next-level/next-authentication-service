@@ -4,15 +4,12 @@ import { ConfigModule } from "@nestjs/config";
 import defaultConfiguration from "@/config";
 import nestConfiguration, { validate } from "@/nestjs/config";
 
-import { CipherModule } from "@/app/cipher/cipher.module";
-import { LoggedinController } from "@/app/loggedin/loggedin.controller";
-import { LoggedinModule } from "@/app/loggedin/loggedin.module";
-import { TokenController } from "@/app/token/token.controller";
-import { TokenModule } from "@/app/token/token.module";
+import { DevicesModule } from "@/app/devices/devices.module";
+import { SessionsModule } from "@/app/sessions/sessions.module";
+import { TokensModule } from "@/app/tokens/tokens.module";
 
 // import { RedisDatabaseModule } from "@/nestjs/db/redis/database.module";
-import { MongooseDatabaseModule } from "@/nestjs/db/mongo/database.module";
-import { MongooseModelsModule } from "@/nestjs/db/mongo/models.module";
+// import { DrizzleDatabaseModule } from "@/nestjs/db/postgres/drizzle/database.module";
 
 import { AppController } from "@/app.controller";
 import { AppService } from "@/app.service";
@@ -26,14 +23,13 @@ import { AppService } from "@/app.service";
       cache: true,
       validate,
     }),
-    TokenModule,
-    CipherModule,
-    // LoggedinModule,
+    DevicesModule,
+    SessionsModule,
+    TokensModule,
     // RedisDatabaseModule,
-    // MongooseModelsModule,
-    // MongooseDatabaseModule,
+    // DrizzleDatabaseModule
   ],
-  controllers: [AppController, TokenController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
