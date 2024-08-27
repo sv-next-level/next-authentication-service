@@ -19,6 +19,6 @@ export const POSTGRES_DB_SCHEMA = {
 };
 
 export const POSTGRES_DB_SCHEMA_PATH = [
-  "./src/app/devices/entity/**.drizzle.entity.ts",
-  "./src/app/sessions/entity/**.drizzle.entity.ts",
+  "./src/app/devices/entities/**.drizzle.entity.ts",
+  "./src/app/sessions/entities/**.drizzle.entity.ts",
 ];

@@ -1,16 +1,84 @@
-import { pgTable, serial } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import {
+  index,
+  json,
+  pgEnum,
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm/sql";
 
-const Session = pgTable("sessions", {
-  id: serial("id").primaryKey(),
-  user_id: serial("user_id").$type<String>().notNull(),
-  device_id: serial("device_id").$type<String>().notNull(),
-  refresh_token: serial("refresh_token").$type<String>().notNull(),
-  status: serial("status").$type<String>().notNull(),
-  meta_data: serial("meta_data").$type<String>().notNull(),
-  last_used_at: serial("last_used_at").$type<String>().notNull(),
-  expires_at: serial("expires_at").$type<String>().notNull(),
-  updated_at: serial("updated_at").$type<String>().notNull(),
-  issued_at: serial("issued_at").default(Date.now()),
-});
+import { Device } from "@/app/devices/entities/device.drizzle.entity";
+import { SESSION_STATUS } from "@/app/sessions/entities/sessions.enum";
 
-export { Session };
+export const SessionStatusEnum = pgEnum("status", [
+  SESSION_STATUS.ACTIVE,
+  SESSION_STATUS.EXPIRED,
+  SESSION_STATUS.LOGOUT_ALL,
+  SESSION_STATUS.LOGOUT_FORCE,
+  SESSION_STATUS.LOGOUT_SELF,
+  SESSION_STATUS.PW_CHANGE,
+  SESSION_STATUS.PW_FORGOT,
+]);
+
+export const Session = pgTable(
+  "sessions",
+  {
+    _id: uuid("_id").defaultRandom().primaryKey(),
+
+    user_id: varchar("user_id", {
+      length: 30,
+    }).notNull(),
+
+    device_id: uuid("device_id").references(() => Device._id),
+
+    token: varchar("token", {
+      length: 3000,
+    }).notNull(),
+
+    status: SessionStatusEnum("status")
+      .$defaultFn(() => SessionStatusEnum.enumValues[0])
+      .notNull(),
+
+    metadata: json("metadata").notNull(),
+
+    last_used_at: timestamp("last_used_at", {
+      mode: "date",
+      precision: 6,
+      withTimezone: true,
+    }).notNull(),
+
+    expires_at: timestamp("expires_at", {
+      mode: "date",
+      precision: 6,
+      withTimezone: true,
+    }).notNull(),
+
+    updated_at: timestamp("updated_at", {
+      mode: "date",
+      precision: 6,
+      withTimezone: true,
+    })
+      .$onUpdate(() => new Date())
+      .notNull(),
+
+    created_at: timestamp("created_at", {
+      mode: "date",
+      precision: 6,
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => ({
+    tokenIndex: index("token_index")
+      .on(table.token)
+      .where(sql`status='ACTIVE'`),
+  }),
+);
+
+export const sessionRelations = relations(Session, ({ many }) => ({
+  devices: many(Device),
+}));
