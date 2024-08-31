@@ -11,3 +11,4 @@ yarn.lock
 .prettierignore
 .prettierrc
 .releaserc
+tsconfig.doc.json

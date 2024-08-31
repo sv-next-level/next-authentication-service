@@ -79,6 +79,10 @@ export const Session = pgTable(
   }),
 );
 
-export const sessionRelations = relations(Session, ({ many }) => ({
-  devices: many(Device),
+export const sessionRelations = relations(Session, ({ one }) => ({
+  device: one(Device, {
+    fields: [Session.device_id],
+    references: [Device._id],
+    relationName: "one_device_to_many_session",
+  }),
 }));

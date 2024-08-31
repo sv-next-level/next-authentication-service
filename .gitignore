@@ -42,6 +42,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Documentation directories
+documentation/
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
@@ -138,3 +141,4 @@ dist
 .prettierignore
 .prettierrc
 .releaserc
+tsconfig.doc.json

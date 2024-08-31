@@ -6,3 +6,4 @@
 ./src/shared/nestjs/.prettierignore
 ./src/shared/nestjs/.prettierrc
 ./src/shared/nestjs/.releaserc
+./src/shared/nestjs/tsconfig.doc.json

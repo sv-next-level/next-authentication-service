@@ -20,6 +20,8 @@
     "lints": "lint-staged",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "preview": "npm run build && npm run start:prod",
+    "compodoc:generate": "npx compodoc -p tsconfig.doc.json",
+    "compodoc:serve": "npx compodoc -p tsconfig.doc.json -s",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
